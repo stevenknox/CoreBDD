@@ -13,9 +13,11 @@ public class Calculator
         public int Add(int x, int y) => x + y;
         public int Subtract(int x, int y) => x - y;
     }
+```
 
 We can define a *Feature* to collate a suite of scenarios by deriving from the *Specification* base class and decorating with the *Feature* attribute
 
+  ``` csharp
     [Feature("Calculator", 
     @"In order to avoid silly mistakes
     As a math idiot
