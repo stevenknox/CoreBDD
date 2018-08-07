@@ -39,10 +39,8 @@ To create a scenario for this feature, simply inherit from the new Feature class
     {
         readonly Calculator calc;
 
-        public AddTwoNumbers(GivenWhenThenFixture state) : base(state)
-        {
-             calc = new Calculator();
-        }
+        public AddTwoNumbers(GivenWhenThenFixture state) 
+            : base(state) => calc = new Calculator();
 
         [Given("I have entered {0} into the calculator", 1)]
         public void Given(int first) => Context.Given.First = first;
