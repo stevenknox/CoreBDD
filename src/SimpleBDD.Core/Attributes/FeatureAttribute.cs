@@ -2,7 +2,7 @@ using System;
 
 namespace SimpleBDD
 {
-    public class FeatureAttribute : Attribute
+    public class FeatureAttribute : System.Attribute
     {
          public FeatureAttribute(string title)
         {

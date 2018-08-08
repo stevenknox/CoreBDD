@@ -10,5 +10,10 @@ namespace SimpleBDD
          {
             
          }
+
+         public CalculatorFeature()
+         {
+            
+         }
     }
 }

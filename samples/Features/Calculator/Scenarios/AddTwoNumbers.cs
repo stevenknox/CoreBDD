@@ -9,15 +9,15 @@ namespace SimpleBDD
             : base(state) => calc = new Calculator();
 
         [Given("I have entered {0} into the calculator", 1)]
-        public void Given(int first) => Context.Given.First = first;
+        public void GivenStep(int first) => Context.Given.First = first;
 
         [And("I have also entered {0} into the calculator", 2)]
-        public void And(int second) => Context.Given.Second = second;
+        public void AndStep(int second) => Context.Given.Second = second;
 
         [When("I press add")]
-        public void When() => Context.When = calc.Add(Context.Given.First, Context.Given.Second);
+        public void WhenStep() => Context.When = calc.Add(Context.Given.First, Context.Given.Second);
 
         [Then("the result should be {0}", 3)]
-        public void Then(int result) => Context.Then.ShouldBe(result);
+        public void ThenStep(int result) => Context.Then.ShouldBe(result);
     }
 }

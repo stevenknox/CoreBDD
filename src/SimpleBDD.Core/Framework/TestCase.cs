@@ -9,7 +9,10 @@ namespace SimpleBDD
     public class TestCase : XunitTestCase
     {
 
+        #pragma warning disable CS0618 
         public TestCase() { }
+        #pragma warning restore CS0618 
+        
         public TestCase(IMessageSink diagnosticMessageSink, TestMethodDisplay testMethodDisplay, ITestMethod testMethod, object[] args)
             : base(diagnosticMessageSink, testMethodDisplay, testMethod, testMethodArguments: args)
         {

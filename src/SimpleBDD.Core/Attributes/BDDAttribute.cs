@@ -4,7 +4,7 @@ using Xunit.Sdk;
 
 namespace SimpleBDD
 {
-    [XunitTestCaseDiscoverer("SimpleBDD.Discoverer", "SimpleBDD")]
+    [XunitTestCaseDiscoverer("SimpleBDD.Discoverer", "SimpleBDD.Core")]
     public class BDDAttribute : FactAttribute
     {
         public int Priority { get; set; }
@@ -18,8 +18,11 @@ namespace SimpleBDD
         public BDDAttribute(int priority, params object[] data)
         {
             Priority = priority;
-            Spec = data[0].ToString();
-            this.args = data.Skip(1).ToArray();
+            if(data.Length > 0)
+            {
+                Spec = data[0].ToString();
+                this.args = data.Skip(1).ToArray();
+            }
         }
     }
 }
