@@ -2,14 +2,14 @@ using Xunit;
 
 namespace SimpleBDD
 {
-    public class InlineSpecAttribute : BDDAttribute
+    public class InlineSpec : BDDAttribute
     {
-        public InlineSpecAttribute() : base(0)
+        public InlineSpec() : base(0)
         {
 
         }
 
-        public InlineSpecAttribute(params object[] data) : base(0, data)
+        public InlineSpec(params object[] data) : base(0, data)
         {
 
         }

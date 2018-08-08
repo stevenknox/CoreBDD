@@ -2,14 +2,14 @@ using System;
 
 namespace SimpleBDD
 {
-    public class FeatureAttribute : System.Attribute
+    public class Feature : System.Attribute
     {
-         public FeatureAttribute(string title)
+         public Feature(string title)
         {
             this.Title = title;
 
         }
-        public FeatureAttribute(string title, string description)
+        public Feature(string title, string description)
         {
             this.Title = title;
             this.Description = description;

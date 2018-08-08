@@ -18,6 +18,6 @@ namespace SimpleBDD
         public void WhenStep() => Context.When = calc.Add(Context.Given.First, Context.Given.Second);
 
         [Then("the result should be {0}", 3)]
-        public void ThenStep(int result) => Context.Then.ShouldBe(result);
+        public void ThenStep(int result) => Context.Result.ShouldBe(result);
     }
 }

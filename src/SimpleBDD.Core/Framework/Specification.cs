@@ -3,8 +3,8 @@ using Xunit;
 
 namespace SimpleBDD
 {
-    [TestCaseOrderer("SimpleBDD.OrderedSpecification", "SimpleBDD.Core")]
-    [Collection("SimpleBBD")]
+    [TestCaseOrderer("SimpleBDD.OrderedSpecification", "SimpleBDD")]
+    [Collection("SimpleBDD")]
     public class Specification : IClassFixture<GivenWhenThenFixture>
     {
         public GivenWhenThenFixture Context;

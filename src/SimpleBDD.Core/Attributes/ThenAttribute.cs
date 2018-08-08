@@ -2,14 +2,14 @@ using Xunit.Sdk;
 
 namespace SimpleBDD
 {
-    public class ThenAttribute : BDDAttribute
+    public class Then : BDDAttribute
     {
-        public ThenAttribute():base(4)
+        public Then():base(4)
         {
             
         }
 
-        public ThenAttribute(params object[] data):base(4,data)
+        public Then(params object[] data):base(4,data)
         {
             
         }

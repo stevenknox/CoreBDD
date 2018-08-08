@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace SimpleBDD
 {
     [Scenario("Subtract two numbers")]
@@ -33,7 +31,7 @@ namespace SimpleBDD
         [Then("the result should be {0}", 3)]
         public void ThenStep(int result)
         {
-            Assert.Equal(Context.When, result);
+            Context.Result.ShouldBe(result);
         }
 
     }

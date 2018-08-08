@@ -52,7 +52,7 @@ To create a scenario for this feature, simply inherit from the new Feature class
         public void When() => Context.When = calc.Add(Context.Given.First, Context.Given.Second);
 
         [Then("the result should be {0}", 3)]
-        public void Then(int result) => Context.Then.ShouldBe(result);
+        public void Then(int result) => Context.Result.ShouldBe(result);
     }
 ```
 
@@ -90,9 +90,54 @@ The above shows a simple, terse implementation using expression bodied members f
         [Then("the result should be {0}", 3)]
         public void Then(int result)
         {
-            Assert.Equal(Context.When, result);
+           Context.Result.ShouldBe(result);
         }
 
+    }
+```
+
+You can also define senarios in a single method using delgates for each of the steps and allowing for multiple scenarios to be defined within the same class
+
+  ``` csharp
+    public class AdvancedCalculator : CalculatorFeature
+    {
+        Calculator calculator;
+
+        [Spec("Multiply two numbers")]
+        public void MultiplyTwoNumbers()
+        {
+            Given("I have a calculator",           () => calculator = new Calculator());
+            When("I key in 10",                    () => calculator.Key(10));
+            When("I key in 5 and press multiply",  () => calculator.Multiply(5));
+            Then("It sets the Total to 50",        () => calculator.Total.ShouldBe(50));
+            Then("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
+        }
+
+        [Spec("Divide two numbers")]
+        public void DivideTwoNumbers()
+        {
+            Given("I have a calculator",       () => calculator = new Calculator());
+            When("I key in 42",                () => calculator.Key(42));
+            Then("It sets the Total to 42",    () => calculator.Total.ShouldBe(42));
+            Then("It sets the equation to 42", () => calculator.Equation.ShouldBe("42"));
+        }
+    }   
+```
+
+You can generate Gherkin specs from your tests using the *SimpleBDD.SpecGeneration* extension library, either by calling from an application or command line tool and passing in the path to the assembly containing tests, or by hooking up your test project to generate the specs after the test run. 
+
+To do the latter, create a Fixture class within your test project, reference the *SimpleBDD.SpecGeneration* library and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
+
+  ``` csharp
+    [CollectionDefinition("SimpleBDD")]
+    public class Collection : ICollectionFixture<GenerateSpecsFixture> { }
+
+    public class GenerateSpecsFixture : IDisposable
+    {
+        public void Dispose()
+        {
+            GenerateSpecs.OutputFeatureSpecs(this.GetType().Assembly.Location, @"..\..\..\Specs\");
+        }
     }
 ```
 

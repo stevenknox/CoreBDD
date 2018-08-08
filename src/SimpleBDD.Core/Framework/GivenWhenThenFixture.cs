@@ -9,6 +9,7 @@ namespace SimpleBDD
         public dynamic Given { get; set; }
         public dynamic When { get; set; }
         public object Then { get { return When; }  }
+        public object Result { get { return When; }  }
 
         public GivenWhenThenFixture()
         {

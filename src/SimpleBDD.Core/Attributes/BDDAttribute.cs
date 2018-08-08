@@ -4,7 +4,7 @@ using Xunit.Sdk;
 
 namespace SimpleBDD
 {
-    [XunitTestCaseDiscoverer("SimpleBDD.Discoverer", "SimpleBDD.Core")]
+    [XunitTestCaseDiscoverer("SimpleBDD.Discoverer", "SimpleBDD")]
     public class BDDAttribute : FactAttribute
     {
         public int Priority { get; set; }

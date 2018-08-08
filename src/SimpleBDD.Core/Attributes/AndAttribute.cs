@@ -1,14 +1,14 @@
 namespace SimpleBDD
 {
 
-    public class AndAttribute : BDDAttribute
+    public class And : BDDAttribute
      {
-         public AndAttribute():base(2)
+         public And():base(2)
         {
             
         }
 
-        public AndAttribute(params object[] data):base(2,data)
+        public And(params object[] data):base(2,data)
         {
             
         }

@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBDD.Samples", "samples\SimpleBDD.Samples.csproj", "{69B40923-6A34-4379-A0C3-2A41AF293E75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBDD.Core", "src\SimpleBDD.Core\SimpleBDD.Core.csproj", "{84CFD362-121B-4B7D-BB16-C5E1602E7ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBDD.Core", "src\SimpleBDD.Core\SimpleBDD.csproj", "{84CFD362-121B-4B7D-BB16-C5E1602E7ABD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBDDSpecGeneration", "src\SimpleBDD.SpecGeneration\SimpleBDDSpecGeneration.csproj", "{9F0510C4-1024-4B72-83D7-C36B74527E70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBDD.SpecGeneration", "src\SimpleBDD.SpecGeneration\SimpleBDD.SpecGeneration.csproj", "{9F0510C4-1024-4B72-83D7-C36B74527E70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

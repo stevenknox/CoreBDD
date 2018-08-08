@@ -1,6 +1,3 @@
-using System;
-using Xunit;
-
 namespace SimpleBDD
 {
     public class AdvancedCalculator : CalculatorFeature

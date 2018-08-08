@@ -35,9 +35,9 @@ namespace SimpleBDD
         private IEnumerable<IAttributeInfo> GivenWhenThenAttributes<TTestCase>(TTestCase testCase) where TTestCase : ITestCase
         {
             var attrs = new List<IAttributeInfo>();
-            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(GivenAttribute).AssemblyQualifiedName)));
+            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(Given).AssemblyQualifiedName)));
             attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(WhenAttribute).AssemblyQualifiedName)));
-            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(ThenAttribute).AssemblyQualifiedName)));
+            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(Then).AssemblyQualifiedName)));
             return attrs;
         }
 

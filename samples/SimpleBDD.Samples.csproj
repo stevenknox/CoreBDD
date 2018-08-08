@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SimpleBDD.Core\SimpleBDD.Core.csproj" />
+    <ProjectReference Include="..\src\SimpleBDD.Core\SimpleBDD.csproj" />
+    <ProjectReference Include="..\src\SimpleBDD.SpecGeneration\SimpleBDD.SpecGeneration.csproj" />
   </ItemGroup>
 
 </Project>

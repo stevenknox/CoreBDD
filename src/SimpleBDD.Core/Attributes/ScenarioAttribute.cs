@@ -2,10 +2,10 @@ using System;
 
 namespace SimpleBDD
 {
-    public class ScenarioAttribute : System.Attribute
+    public class Scenario : System.Attribute
     {
         public string Title { get; set; }
-        public ScenarioAttribute(string title)
+        public Scenario(string title)
         {
             Title = title;
         }
