@@ -36,7 +36,7 @@ namespace CoreBDD
         {
             var attrs = new List<IAttributeInfo>();
             attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(Given).AssemblyQualifiedName)));
-            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(WhenAttribute).AssemblyQualifiedName)));
+            attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(When).AssemblyQualifiedName)));
             attrs.AddRange(testCase.TestMethod.Method.GetCustomAttributes((typeof(Then).AssemblyQualifiedName)));
             return attrs;
         }

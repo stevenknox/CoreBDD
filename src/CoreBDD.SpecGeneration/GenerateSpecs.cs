@@ -138,8 +138,7 @@ namespace CoreBDD.SpecGeneration
                                 index++;
                             }
                             
-                            
-                            str.Append($"\r\n\t\t\t{inv.Expression.ToString()} {statement}");
+                            str.Append($"\r\n\t\t\t{inv.Expression.ToString().TrimStart("this.".ToCharArray())} {statement}");
                         }
                     }
                     iData++;

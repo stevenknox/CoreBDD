@@ -37,5 +37,11 @@ namespace CoreBDD
             action.Invoke();
         }
 
+        public virtual void And(string context, Action action)
+        {
+            System.Console.WriteLine(context);
+            action.Invoke();
+        }
+
     }
 }
