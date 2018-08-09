@@ -193,3 +193,5 @@ When the tests complete running, a *feature.spec* file is generated under the Sp
     			Then the result should be 3
 
 ```
+
+If you are developing using VS Code I have created some snippets [available here](https://gist.github.com/stevenknox/231f1dcf775ceeeb890edc634ad551a2)
