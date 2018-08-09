@@ -10,7 +10,7 @@ BDD framework for xUnit.net
 Get the package from nuget
 
 ```ruby
-    dotnet package add CoreBDD
+    dotnet add package CoreBDD
 ```
 
 Following the usual calculator example, we can start with the following model to test
@@ -154,7 +154,7 @@ You can generate Gherkin specs from your tests using the *CoreBDD.SpecGeneration
 To do the latter, first reference the *CoreBDD.SpecGeneration* library
 
   ```ruby
-    dotnet package add CoreBDD.SpecGeneration
+    dotnet add package CoreBDD.SpecGeneration
 ```
 
 Next create a Fixture class within your test project, and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
