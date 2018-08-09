@@ -99,7 +99,7 @@ namespace CoreBDD.SpecGeneration
                 foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements.Where(f=> f.Kind() == SyntaxKind.ExpressionStatement))
                 {
                     //this will be a statement in method body
-                    if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().IsGherkin())
+                    if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().TrimExpression().IsGherkin())
                     {
                         var inv = (InvocationExpressionSyntax)exp.Expression;
 
@@ -128,7 +128,7 @@ namespace CoreBDD.SpecGeneration
                     foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements.Where(f=> f.Kind() == SyntaxKind.ExpressionStatement))
                     {
                         //todo - this can be tighted up
-                        if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().IsGherkin())
+                        if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().TrimExpression().IsGherkin())
                         {
                             var inv = (InvocationExpressionSyntax)exp.Expression;
 
