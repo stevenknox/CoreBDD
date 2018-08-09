@@ -1,9 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
 
-    <IsPackable>false</IsPackable>
+    <PackageId>CoreBDD.SpecGeneration</PackageId>
+
+    <Title>CoreBDD.SpecGeneration</Title>
+
+    <Authors>Steven Knox, Roger Tinsley</Authors>
+
+    <Description>BDD Framework for xUnit and .Net Core</Description>
+
+    <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
+
+    <Version>0.1.0</Version>
+
+    <PackageTags>xunit,netcore,aspnetcore,bdd,test,corebdd</PackageTags>
+
+    <Company />
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
  <ItemGroup>
     <PackageReference Include="ICSharpCode.Decompiler" Version="3.2.0.3856" />
