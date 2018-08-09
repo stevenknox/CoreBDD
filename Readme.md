@@ -39,8 +39,7 @@ We can define a *Feature* to collate a suite of scenarios by deriving from the *
          }
     }
 ```
-
-To create a scenario for this feature, simply inherit from the new Feature class, decorate with a Scenario attribute and provide Given, When, Then methods that will execute in order
+Once we have created our base Feature, we have several different flavours for writing tests, first we can generate a senario-per-class with a method for each Given/When/Then step. To do this simply inherit from the new Feature class, decorate with a Scenario attribute and provide Given, When, Then methods that will execute in order
 
   ``` csharp
     [Scenario("Add two numbers")]
