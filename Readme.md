@@ -39,7 +39,7 @@ We can define a *Feature* to collate a suite of scenarios by deriving from the *
          }
     }
 ```
-Once we have created our base Feature, we have several different flavours for writing tests, first we can generate a senario-per-class with a method for each Given/When/Then step. To do this simply inherit from the new Feature class, decorate with a Scenario attribute and provide Given, When, Then methods that will execute in order
+Once we have created our base Feature, we have several different flavours for writing tests, first we can generate a scenario-per-class with a method for each Given/When/Then step. To do this simply inherit from the new Feature class, decorate with a Scenario attribute and provide Given, When, Then methods that will execute in order
 
   ``` csharp
     [Scenario("Add two numbers")]
@@ -104,7 +104,7 @@ The above shows a simple, terse implementation using expression bodied members f
     }
 ```
 
-You can also define senarios in a single method using delgates for each of the steps and allowing for multiple scenarios to be defined within the same class
+You can also define scenarios in a single method using delgates for each of the steps and allowing for multiple scenarios to be defined within the same class
 
   ``` csharp
     public class AdvancedCalculator : CalculatorFeature
@@ -132,7 +132,7 @@ You can also define senarios in a single method using delgates for each of the s
     }   
 ```
 
-The method based syntax also supports data driven tests, using xUnit InlineData (class based senarios don't support data driven tests just yet).
+The method based syntax also supports data driven tests, using xUnit InlineData (class based scenarios don't support data driven tests just yet).
 
   ``` csharp
         [DataDrivenSpec("Divide two numbers")]
