@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using static System.Console;
 
 namespace CoreBDD
 {
@@ -21,25 +22,25 @@ namespace CoreBDD
 
         public virtual void Given(string context, Action action)
         {
-            System.Console.WriteLine(context);
+            WriteLine(context);
             action.Invoke();
         }
 
         public virtual void When(string context, Action action)
         {
-            System.Console.WriteLine(context);
+            WriteLine(context);
             action.Invoke();
         }
 
         public virtual void Then(string context, Action action)
         {
-            System.Console.WriteLine(context);
+            WriteLine(context);
             action.Invoke();
         }
 
         public virtual void And(string context, Action action)
         {
-            System.Console.WriteLine(context);
+            WriteLine(context);
             action.Invoke();
         }
 

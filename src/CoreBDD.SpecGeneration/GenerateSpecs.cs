@@ -17,6 +17,9 @@ namespace CoreBDD.SpecGeneration
 {
     public static class GenerateSpecs
     {
+        private const string FormatWhitespace = "\r\n\t\t\t";
+        private const string SingleLine = "\r\n";
+        private const string Tab = "\t";
         public static void OutputFeatureSpecs(string assemblyPath, string specFilePath)
         {
             OutputFeatureSpecs(Assembly.LoadFile(assemblyPath), specFilePath);
@@ -30,9 +33,9 @@ namespace CoreBDD.SpecGeneration
             {
                 Feature featureAttr = (Feature)feature.GetCustomAttributes((typeof(Feature))).First();//should only be one feature attribute
 
-                str.Append($"# This file is auto-generated, any changes made to this file will be lost\r\n\r\n\r\n");
+                str.Append($"# This file is auto-generated, any changes made to this file will be lost{SingleLine}{SingleLine}{SingleLine}");
 
-                str.Append($"Feature: {featureAttr.Title}\r\n\t{featureAttr.Description}");
+                str.Append($"Feature: {featureAttr.Title}{SingleLine}{Tab}{featureAttr.Description}");
 
                 WriteFeatureScenarios(assembly, str, feature);
 
@@ -88,19 +91,19 @@ namespace CoreBDD.SpecGeneration
             foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(Spec)) != null))
             {
                 var spec = (Spec)m.GetCustomAttribute(typeof(Spec));
-                str.Append($"\r\n\r\nScenario: {spec.Spec}");
+                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Spec}");
 
                 var mtdWalker = new MethodWalker(m.Name);
                 mtdWalker.Visit(node);
 
-                foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements)
+                foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements.Where(f=> f.Kind() == SyntaxKind.ExpressionStatement))
                 {
                     //this will be a statement in method body
-                    if (exp.Expression.Kind() == SyntaxKind.InvocationExpression)
+                    if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().IsGherkin())
                     {
                         var inv = (InvocationExpressionSyntax)exp.Expression;
 
-                        str.Append($"\r\n\t\t\t{inv.Expression.ToString()} {inv.ArgumentList.Arguments[0].ToString().Trim('"')}");
+                        str.Append($"{FormatWhitespace}{inv.Expression.ToString().TrimExpression()} {inv.ArgumentList.Arguments[0].ToString().TrimArgument()}");
                     }
                 }
 
@@ -109,7 +112,7 @@ namespace CoreBDD.SpecGeneration
             foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(DataDrivenSpec)) != null))
             {
                 var spec = (DataDrivenSpec)m.GetCustomAttribute(typeof(DataDrivenSpec));
-                str.Append($"\r\n\r\nScenario: {spec.Spec}");
+                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Spec}");
 
                 var inlineData = m.GetCustomAttributes(typeof(InlineDataAttribute));
 
@@ -121,16 +124,16 @@ namespace CoreBDD.SpecGeneration
                 foreach (InlineDataAttribute data in inlineData)
                 {
                     if(iData > 0)
-                        str.Append($"\r\n");
-                    foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements)
+                        str.Append(SingleLine);
+                    foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements.Where(f=> f.Kind() == SyntaxKind.ExpressionStatement))
                     {
                         //todo - this can be tighted up
-                        if (exp.Expression.Kind() == SyntaxKind.InvocationExpression)
+                        if (exp.Expression.Kind() == SyntaxKind.InvocationExpression && exp.Expression.ToString().IsGherkin())
                         {
                             var inv = (InvocationExpressionSyntax)exp.Expression;
 
                             var argData = data.GetData(m).First().ToArray();
-                            var statement = inv.ArgumentList.Arguments[0].ToString().Trim('$').Trim('"');
+                            var statement = inv.ArgumentList.Arguments[0].ToString().TrimArgument();
                             var index = 0;
                             foreach (var param in methodParams)
                             {
@@ -138,7 +141,7 @@ namespace CoreBDD.SpecGeneration
                                 index++;
                             }
                             
-                            str.Append($"\r\n\t\t\t{inv.Expression.ToString().TrimStart("this.".ToCharArray())} {statement}");
+                            str.Append($"{FormatWhitespace}{inv.Expression.ToString().TrimExpression()} {statement}");
                         }
                     }
                     iData++;
@@ -148,7 +151,7 @@ namespace CoreBDD.SpecGeneration
 
         private static void GenerateSpecsForDecoratorBasedSyntax(StringBuilder str, Type featureScenarios, IEnumerable<Attribute> senarios)
         {
-            str.Append($"\r\n\r\nScenario: {((Scenario)senarios.First()).Title}\r\n\t\t\t");
+            str.Append($"{SingleLine}{SingleLine}Scenario: {((Scenario)senarios.First()).Title}{FormatWhitespace}");
 
             var methods = featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(BDDAttribute), false).Length > 0).ToArray();
             var attrs = new List<BDDAttribute>();
@@ -158,7 +161,7 @@ namespace CoreBDD.SpecGeneration
                 attrs.AddRange(m);
             }
 
-            str.Append(string.Join("\r\n\t\t\t", attrs.Select(s => s.GetType().Name + " " + string.Format(s.Spec, s.args))));
+            str.Append(string.Join($"{FormatWhitespace}", attrs.Select(s => s.GetType().Name + " " + string.Format(s.Spec, s.args))));
         }
 
         static IEnumerable<Type> GetFeatureClasses(Assembly assembly)
