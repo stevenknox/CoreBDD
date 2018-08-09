@@ -124,6 +124,22 @@ You can also define senarios in a single method using delgates for each of the s
     }   
 ```
 
+The method based syntax also supports data driven tests, using xUnit InlineData (class based senarios don't support data driven tests just yet).
+
+  ``` csharp
+        [DataDrivenSpec("Divide two numbers")]
+        [InlineData(10, 2, 5)]
+        [InlineData(20, 4, 5)]
+        public void DivideTwoNumbers(int number, int divideby, int result)
+        {
+            Given($"I have a calculator",                           () => calculator = new Calculator());
+            When($"I key in {number}",                              () => calculator.Key(number));
+            When($"I key in {divideby} and press divide",           () => calculator.Divide(divideby));
+            Then($"It sets the Total to {result}",                  () => calculator.Total.ShouldBe(result));
+            Then($"It sets the equation to {number} / {divideby}",  () => calculator.Equation.ShouldBe($"{number} / {divideby}"));
+        }
+```
+
 You can generate Gherkin specs from your tests using the *SimpleBDD.SpecGeneration* extension library, either by calling from an application or command line tool and passing in the path to the assembly containing tests, or by hooking up your test project to generate the specs after the test run. 
 
 To do the latter, create a Fixture class within your test project, reference the *SimpleBDD.SpecGeneration* library and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.

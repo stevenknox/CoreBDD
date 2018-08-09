@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mono.Cecil;
+using Xunit;
 
 namespace SimpleBDD.SpecGeneration
 {
@@ -61,6 +62,7 @@ namespace SimpleBDD.SpecGeneration
 
         }
 
+        //todo - tidy/refactor this method
         private static void GenerateSpecsForInlineSyntax(Assembly assembly, StringBuilder str, Type featureScenarios)
         {
             var decompiler = new CSharpDecompiler(assembly.Location, new DecompilerSettings { ThrowOnAssemblyResolveErrors = false });
@@ -79,9 +81,11 @@ namespace SimpleBDD.SpecGeneration
                                     .GetSemanticModel(tree);
 
 
-            var methods = featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(BDDAttribute), false).Length > 0).ToArray();
+            var methods = featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(BDDAttribute), false).Length > 0).ToList();
+            methods.AddRange(featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(DataDrivenSpec), false).Length > 0));
+
             var attrs = new List<BDDAttribute>();
-            foreach (MethodInfo m in methods)
+            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(Spec)) != null))
             {
                 var spec = (Spec)m.GetCustomAttribute(typeof(Spec));
                 str.Append($"\r\n\r\nScenario: {spec.Spec}");
@@ -100,6 +104,46 @@ namespace SimpleBDD.SpecGeneration
                     }
                 }
 
+            }
+
+            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(DataDrivenSpec)) != null))
+            {
+                var spec = (DataDrivenSpec)m.GetCustomAttribute(typeof(DataDrivenSpec));
+                str.Append($"\r\n\r\nScenario: {spec.Spec}");
+
+                var inlineData = m.GetCustomAttributes(typeof(InlineDataAttribute));
+
+                var mtdWalker = new MethodWalker(m.Name);
+                mtdWalker.Visit(node);
+
+                var methodParams = mtdWalker.Node.ParameterList.Parameters.Select(s=> s.Identifier);
+                var iData = 0;
+                foreach (InlineDataAttribute data in inlineData)
+                {
+                    if(iData > 0)
+                        str.Append($"\r\n");
+                    foreach (ExpressionStatementSyntax exp in mtdWalker.Node.Body.Statements)
+                    {
+                        //todo - this can be tighted up
+                        if (exp.Expression.Kind() == SyntaxKind.InvocationExpression)
+                        {
+                            var inv = (InvocationExpressionSyntax)exp.Expression;
+
+                            var argData = data.GetData(m).First().ToArray();
+                            var statement = inv.ArgumentList.Arguments[0].ToString().Trim('$').Trim('"');
+                            var index = 0;
+                            foreach (var param in methodParams)
+                            {
+                                statement = statement.Replace("{" + param + "}", argData[index].ToString());    
+                                index++;
+                            }
+                            
+                            
+                            str.Append($"\r\n\t\t\t{inv.Expression.ToString()} {statement}");
+                        }
+                    }
+                    iData++;
+                }
             }
         }
 

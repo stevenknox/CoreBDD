@@ -1,3 +1,5 @@
+using Xunit;
+
 namespace SimpleBDD
 {
     public class AdvancedCalculator : CalculatorFeature
@@ -14,13 +16,16 @@ namespace SimpleBDD
             Then("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
         }
 
-        [Spec("Divide two numbers")]
-        public void DivideTwoNumbers()
+        [DataDrivenSpec("Divide two numbers")]
+        [InlineData(10, 2, 5)]
+        [InlineData(20, 4, 5)]
+        public void DivideTwoNumbers(int number, int divideby, int result)
         {
-            Given("I have a calculator",       () => calculator = new Calculator());
-            When("I key in 42",                () => calculator.Key(42));
-            Then("It sets the Total to 42",    () => calculator.Total.ShouldBe(42));
-            Then("It sets the equation to 42", () => calculator.Equation.ShouldBe("42"));
+            Given($"I have a calculator",         () => calculator = new Calculator());
+            When($"I key in {number}",                    () => calculator.Key(number));
+            When($"I key in {divideby} and press divide",  () => calculator.Divide(divideby));
+            Then($"It sets the Total to {result}",        () => calculator.Total.ShouldBe(result));
+            Then($"It sets the equation to {number} / {divideby}", () => calculator.Equation.ShouldBe($"{number} / {divideby}"));
         }
     }
 }
