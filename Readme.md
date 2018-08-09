@@ -116,9 +116,9 @@ You can also define scenarios in a single method using delgates for each of the 
         {
             Given("I have a calculator",           () => calculator = new Calculator());
             When("I key in 10",                    () => calculator.Key(10));
-            When("I key in 5 and press multiply",  () => calculator.Multiply(5));
+            And("I key in 5 and press multiply",  () => calculator.Multiply(5));
             Then("It sets the Total to 50",        () => calculator.Total.ShouldBe(50));
-            Then("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
+            And("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
         }
 
         [Spec("Divide two numbers")]
@@ -127,7 +127,7 @@ You can also define scenarios in a single method using delgates for each of the 
             Given("I have a calculator",       () => calculator = new Calculator());
             When("I key in 42",                () => calculator.Key(42));
             Then("It sets the Total to 42",    () => calculator.Total.ShouldBe(42));
-            Then("It sets the equation to 42", () => calculator.Equation.ShouldBe("42"));
+            And("It sets the equation to 42", () => calculator.Equation.ShouldBe("42"));
         }
     }   
 ```
@@ -142,9 +142,9 @@ The method based syntax also supports data driven tests, using xUnit InlineData 
         {
             Given($"I have a calculator",                           () => calculator = new Calculator());
             When($"I key in {number}",                              () => calculator.Key(number));
-            When($"I key in {divideby} and press divide",           () => calculator.Divide(divideby));
+            And($"I key in {divideby} and press divide",           () => calculator.Divide(divideby));
             Then($"It sets the Total to {result}",                  () => calculator.Total.ShouldBe(result));
-            Then($"It sets the equation to {number} / {divideby}",  () => calculator.Equation.ShouldBe($"{number} / {divideby}"));
+            And($"It sets the equation to {number} / {divideby}",  () => calculator.Equation.ShouldBe($"{number} / {divideby}"));
         }
 ```
 
