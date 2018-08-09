@@ -2,9 +2,9 @@ using System.Linq;
 using Xunit;
 using Xunit.Sdk;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
-    [XunitTestCaseDiscoverer("SimpleBDD.Discoverer", "SimpleBDD")]
+    [XunitTestCaseDiscoverer("CoreBDD.Discoverer", "CoreBDD")]
     public class BDDAttribute : FactAttribute
     {
         public int Priority { get; set; }

@@ -1,10 +1,10 @@
 using System;
-using SimpleBDD.SpecGeneration;
+using CoreBDD.SpecGeneration;
 using Xunit;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
-    [CollectionDefinition("SimpleBDD")]
+    [CollectionDefinition("CoreBDD")]
     public class Collection : ICollectionFixture<GenerateSpecsFixture> { }
 
     public class GenerateSpecsFixture : IDisposable

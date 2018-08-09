@@ -1,10 +1,10 @@
 using System;
 using Xunit;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
-    [TestCaseOrderer("SimpleBDD.OrderedSpecification", "SimpleBDD")]
-    [Collection("SimpleBDD")]
+    [TestCaseOrderer("CoreBDD.OrderedSpecification", "CoreBDD")]
+    [Collection("CoreBDD")]
     public class Specification : IClassFixture<GivenWhenThenFixture>
     {
         public GivenWhenThenFixture Context;

@@ -1,4 +1,4 @@
-namespace SimpleBDD
+namespace CoreBDD
 {
     [Feature("Calculator", 
     @"In order to avoid silly mistakes

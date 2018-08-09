@@ -1,4 +1,4 @@
-namespace SimpleBDD
+namespace CoreBDD
 {
 
     public class And : BDDAttribute

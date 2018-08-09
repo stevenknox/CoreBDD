@@ -1,6 +1,6 @@
 using Xunit.Sdk;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
     public class Then : BDDAttribute
     {

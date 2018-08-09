@@ -1,7 +1,7 @@
 using System;
 using System.Dynamic;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
 
     public class GivenWhenThenFixture : IDisposable

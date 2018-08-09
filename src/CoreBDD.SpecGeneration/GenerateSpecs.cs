@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mono.Cecil;
 using Xunit;
 
-namespace SimpleBDD.SpecGeneration
+namespace CoreBDD.SpecGeneration
 {
     public static class GenerateSpecs
     {
@@ -69,7 +69,7 @@ namespace SimpleBDD.SpecGeneration
             var name = new FullTypeName(featureScenarios.FullName);
             var src = decompiler.DecompileTypeAsString(name);
             var refs = new List<MetadataReference>() {
-                        MetadataReference.CreateFromFile(typeof(SimpleBDD.InlineSpec).Assembly.Location),
+                        MetadataReference.CreateFromFile(typeof(CoreBDD.InlineSpec).Assembly.Location),
                     };
 
 

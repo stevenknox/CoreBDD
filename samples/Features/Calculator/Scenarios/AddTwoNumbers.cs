@@ -1,4 +1,4 @@
-namespace SimpleBDD
+namespace CoreBDD
 {
     [Scenario("Add two numbers")]
     public class AddTwoNumbers : CalculatorFeature

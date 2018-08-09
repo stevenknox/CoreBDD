@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
 
     public class TestCase : XunitTestCase

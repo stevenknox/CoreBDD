@@ -1,8 +1,8 @@
-# SimpleBDD
+# CoreBDD
 
 BDD framework for xUnit.net
 
-## Getting started with SimpleBDD
+## Getting started with CoreBDD
 
 Following the usual calculator example, we can start with the following model to test
  
@@ -140,12 +140,12 @@ The method based syntax also supports data driven tests, using xUnit InlineData 
         }
 ```
 
-You can generate Gherkin specs from your tests using the *SimpleBDD.SpecGeneration* extension library, either by calling from an application or command line tool and passing in the path to the assembly containing tests, or by hooking up your test project to generate the specs after the test run. 
+You can generate Gherkin specs from your tests using the *CoreBDD.SpecGeneration* extension library, either by calling from an application or command line tool and passing in the path to the assembly containing tests, or by hooking up your test project to generate the specs after the test run. 
 
-To do the latter, create a Fixture class within your test project, reference the *SimpleBDD.SpecGeneration* library and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
+To do the latter, create a Fixture class within your test project, reference the *CoreBDD.SpecGeneration* library and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
 
   ``` csharp
-    [CollectionDefinition("SimpleBDD")]
+    [CollectionDefinition("CoreBDD")]
     public class Collection : ICollectionFixture<GenerateSpecsFixture> { }
 
     public class GenerateSpecsFixture : IDisposable

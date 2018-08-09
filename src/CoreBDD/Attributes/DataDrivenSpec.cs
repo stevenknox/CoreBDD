@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
     public class DataDrivenSpec : TheoryAttribute
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
 
     public class Discoverer : IXunitTestCaseDiscoverer

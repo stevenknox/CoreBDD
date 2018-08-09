@@ -4,7 +4,7 @@ using System.Linq;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
 
     public class OrderedSpecification : ITestCaseOrderer

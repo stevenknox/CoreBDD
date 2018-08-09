@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleBDD
+namespace CoreBDD
 {
     public class Feature : System.Attribute
     {

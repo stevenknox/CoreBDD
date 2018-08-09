@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace SimpleBDD.SpecGeneration
+namespace CoreBDD.SpecGeneration
 {
     public class MethodWalker : CSharpSyntaxWalker
     {
