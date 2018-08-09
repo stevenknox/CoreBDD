@@ -1,8 +1,17 @@
+[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](https://www.nuget.org/packages/CoreBDD)  [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/stevenknox101)
+
+
 # CoreBDD
 
 BDD framework for xUnit.net
 
 ## Getting started with CoreBDD
+
+Get the package from nuget
+
+```ruby
+    dotnet package add CoreBDD
+```
 
 Following the usual calculator example, we can start with the following model to test
  
@@ -142,7 +151,14 @@ The method based syntax also supports data driven tests, using xUnit InlineData 
 
 You can generate Gherkin specs from your tests using the *CoreBDD.SpecGeneration* extension library, either by calling from an application or command line tool and passing in the path to the assembly containing tests, or by hooking up your test project to generate the specs after the test run. 
 
-To do the latter, create a Fixture class within your test project, reference the *CoreBDD.SpecGeneration* library and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
+To do the latter, first reference the *CoreBDD.SpecGeneration* library
+
+  ```ruby
+    dotnet package add CoreBDD.SpecGeneration
+```
+
+Next create a Fixture class within your test project, and call *GenerateSpecs.OutputFeatureSpecs* within the Dispose method, passing in the Assembly (or path to the Assembly) and the output folder for the generated specs.
+
 
   ``` csharp
     [CollectionDefinition("CoreBDD")]
