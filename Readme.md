@@ -172,7 +172,7 @@ Next create a Fixture class within your test project, and call *GenerateSpecs.Ou
     }
 ```
 
-When the tests complete running, a *feature.spec* file is generated under the Specs folder of the xUnit test project. It generates Gherkin specs for the feature and related scenarios. Example *CalculatorFeature.spec* :
+When the tests complete running, a *FeatureName.feature* file is generated under the Specs folder of the xUnit test project. It generates Gherkin specs for the feature and related scenarios. Example *CalculatorFeature.feature* :
 
   ``` gherkin
     Feature: Calculator
