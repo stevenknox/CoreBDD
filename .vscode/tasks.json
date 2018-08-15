@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/CoreBDD.csproj"
+                "${workspaceFolder}/CoreBDD.sln"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ToolCommandName>corebdd</ToolCommandName>
+    <PackAsTool>True</PackAsTool>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <PackageId>CoreBDD.CommandLine</PackageId>
+
+    <Title>CoreBDD.CommandLine</Title>
+
+    <Authors>Steven Knox, Roger Tinsley</Authors>
+
+    <Description>BDD Framework for xUnit and .Net Core</Description>
+
+    <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
+
+    <VersionPrefix>0.6.0</VersionPrefix>
+    
+    <PackageTags>xunit,netcore,aspnetcore,bdd,test,corebdd</PackageTags>
+    
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
+    <PackageReference Include="NuGet.ProjectModel" Version="4.7.0" />
+    <PackageReference Include="xunit.runner.utility" Version="2.4.0" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreBDD\CoreBDD.csproj" />
+    <ProjectReference Include="..\CoreBDD.SpecGeneration\CoreBDD.SpecGeneration.csproj" />
+  </ItemGroup>
+
+</Project>

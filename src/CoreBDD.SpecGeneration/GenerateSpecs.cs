@@ -42,7 +42,7 @@ namespace CoreBDD.SpecGeneration
                 if(!Directory.Exists(specFilePath))
                     Directory.CreateDirectory(specFilePath);
                     
-                File.WriteAllText($"{specFilePath}{feature.Name}.feature", str.ToString());
+                File.WriteAllText(Path.Combine(specFilePath, $"{feature.Name}.feature"), str.ToString());
                 str.Clear();
             }
 

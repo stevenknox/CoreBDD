@@ -17,31 +17,46 @@ namespace CoreBDD
 
         public Specification()
         {
-
+            Console.WriteLine();
         }
 
         public virtual void Given(string context, Action action)
         {
-            WriteLine(context);
+            PrintStep("Given", context);
             action.Invoke();
         }
 
         public virtual void When(string context, Action action)
         {
-            WriteLine(context);
+            PrintStep("When", context);
             action.Invoke();
         }
 
         public virtual void Then(string context, Action action)
         {
-            WriteLine(context);
+            PrintStep("Then", context);
             action.Invoke();
         }
 
         public virtual void And(string context, Action action)
         {
-            WriteLine(context);
+            PrintStep("And", context);
             action.Invoke();
+        }
+
+        public virtual void But(string context, Action action)
+        {
+            PrintStep("But", context);
+            action.Invoke();
+        }
+
+        static void PrintStep(string step, string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(step + " ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(text.TrimStart(step.ToCharArray()));
+            ResetColor();
         }
 
     }
