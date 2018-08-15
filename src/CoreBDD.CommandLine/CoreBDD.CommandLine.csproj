@@ -24,8 +24,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="gherkin" Version="5.1.0" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
     <PackageReference Include="NuGet.ProjectModel" Version="4.7.0" />
+    <PackageReference Include="ShellProgressBar" Version="4.1.1" />
     <PackageReference Include="xunit.runner.utility" Version="2.4.0" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
     <PackageReference Include="xunit.assert" Version="2.4.0" />
@@ -35,5 +37,15 @@
     <ProjectReference Include="..\CoreBDD\CoreBDD.csproj" />
     <ProjectReference Include="..\CoreBDD.SpecGeneration\CoreBDD.SpecGeneration.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Remove="Tools\Templates" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Tools\Templates\Feature.template" />
+    <!-- <EmbeddedResource  Include="Tools\Templates\Feature.template" /> -->
+  </ItemGroup>
+
 
 </Project>

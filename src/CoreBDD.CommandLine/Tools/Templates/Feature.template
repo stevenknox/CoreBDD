@@ -1,0 +1,16 @@
+using CoreBDD;
+
+namespace [Namespace]
+{
+    [Feature("[Feature]", 
+    @"In order to avoid silly mistakes
+    As a math idiot
+    I want to be told the sum of two numbers")]
+    public class [Feature]Feature : Specification
+    {
+         public [Feature]Feature(SpecFixture context):base(context) 
+         {
+            
+         }
+    }
+}

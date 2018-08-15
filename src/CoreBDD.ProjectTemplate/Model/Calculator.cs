@@ -1,4 +1,4 @@
-namespace SampleBDD.Tests
+namespace CoreBDD.ProjectTemplate
 {
      public class Calculator
     {

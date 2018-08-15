@@ -20,6 +20,12 @@ namespace CoreBDD.CommandLine
         [Option("-o|--output")]
         public string Output { get; }
 
+        [Option("-n|--name")]
+        public string Name{ get; }
+
+        [Option("-ns|--namespace")]
+        public string Namespace { get; }
+
         [Option("-s|--specs")]
         public bool TestWithSpecs { get; set; }
 
@@ -32,7 +38,7 @@ namespace CoreBDD.CommandLine
            switch (Task)
            {
                case "test" : return TestRunner.Run(TestWithSpecs, Path, Output);
-               case "generate": return CodeGeneration.Generate((Generate)Enum.Parse(typeof(Generate), Generate, true), Path, Output);
+               case "generate": return CodeGeneration.Generate(CodeGenerationBuilder.Build(Generate, Path, Output, Name, Namespace));
            }
            Console.ReadKey();
            return 0;

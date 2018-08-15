@@ -1,6 +1,6 @@
 using CoreBDD;
 
-namespace SampleBDD.Tests
+namespace CoreBDD.ProjectTemplate
 {
     [Scenario("Subtract two numbers")]
     public class SubtractTwoNumbers : CalculatorFeature

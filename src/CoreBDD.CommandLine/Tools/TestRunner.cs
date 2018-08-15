@@ -59,7 +59,7 @@ namespace CoreBDD.CommandLine.Tools
                                         
                     if (generateSpecs)
                     {
-                        CodeGeneration.Generate(Generate.Specs, assembliesToTest, output);
+                        CodeGeneration.Generate(CodeGenerationBuilder.BuildSpecs(output).WithAssemblies(assembliesToTest));
                     }
                     else
                     {

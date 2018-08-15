@@ -6,11 +6,11 @@ namespace CoreBDD
 {
     [TestCaseOrderer("CoreBDD.OrderedSpecification", "CoreBDD")]
     [Collection("CoreBDD")]
-    public class Specification : IClassFixture<GivenWhenThenFixture>
+    public class Specification : IClassFixture<SpecFixture>
     {
-        public GivenWhenThenFixture Context;
+        public SpecFixture Context;
 
-        public Specification(GivenWhenThenFixture context)
+        public Specification(SpecFixture context)
         {
             Context = context;
         }

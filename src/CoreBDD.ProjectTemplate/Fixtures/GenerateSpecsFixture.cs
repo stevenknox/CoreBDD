@@ -2,7 +2,7 @@ using System;
 using CoreBDD.SpecGeneration;
 using Xunit;
 
-namespace SampleBDD.Tests
+namespace CoreBDD.ProjectTemplate
 {
     [CollectionDefinition("CoreBDD")]
     public class Collection : ICollectionFixture<GenerateSpecsFixture> { }

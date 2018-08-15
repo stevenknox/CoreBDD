@@ -1,4 +1,4 @@
-namespace CoreBDD
+namespace CoreBDD.ProjectTemplate
 {
     [Feature("Calculator", 
     @"In order to avoid silly mistakes

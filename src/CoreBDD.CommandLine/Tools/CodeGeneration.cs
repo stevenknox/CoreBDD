@@ -1,49 +1,31 @@
 using CoreBDD.CommandLine.Tools.Analyzer;
 using Humanizer;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using static System.Console;
 
 namespace CoreBDD.CommandLine.Tools
 {
-    public enum Generate
-    {
-        Specs,
-        Tests,
-        Feature,
-        Scenario,
-        Test
-    }
     public class CodeGeneration
     {
-        public static int Generate(Generate type, string pathToAssemblies = "", string output = "")
+        public static int Generate(CodeGenerationBuilder builder)
         {
-            var assemblies = FindCoreBDDAssemblies.Find(pathToAssemblies);
-
-            if (assemblies.Any())
-                return Generate(type, assemblies, output);
-
-            return 0;
-
-        }
-        public static int Generate(Generate type, List<string> assemblies, string output = "")
-        {
-
-            switch (type)
+            switch (builder.TypeOfContent)
             {
-                case Tools.Generate.Specs:
-                    GenerateSpecs(type, assemblies, output);
+                case Tools.GenerateContent.Specs:
+                    GenerateSpecs(builder);
                     break;
-                case Tools.Generate.Tests:
+                case Tools.GenerateContent.Tests:
+                case Tools.GenerateContent.Test:
+                    GenerateTests(builder);
                     break;
-                case Tools.Generate.Feature:
-                    GenerateFeature(output);
+                case Tools.GenerateContent.Feature:
+                    GenerateFeature(builder);
                     break;
-                case Tools.Generate.Scenario:
-                    break;
-                case Tools.Generate.Test:
+                case Tools.GenerateContent.Scenario:
                     break;
                 default:
                     break;
@@ -52,29 +34,52 @@ namespace CoreBDD.CommandLine.Tools
             return 0;
         }
 
-        private static void GenerateFeature(string output)
+        private static void GenerateFeature(CodeGenerationBuilder builder)
         {
-            output = output.Pascalize();
-            var folder = Directory.GetCurrentDirectory() + "/" + output;
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            var type = "feature";
+            builder.Name = builder.Name.Pascalize();
+            builder.Namespace = string.IsNullOrWhiteSpace(builder.Namespace) ? "MyApp" : builder.Namespace.Pascalize();
+            if (string.IsNullOrWhiteSpace(builder.OutputPath))
+            {
+                builder.OutputPath = Directory.GetCurrentDirectory() + "/" + (Directory.GetCurrentDirectory().EndsWith("Features", StringComparison.OrdinalIgnoreCase) ? "" : "Features/") + builder.Name;
+                if (!Directory.Exists(builder.OutputPath))
+                    Directory.CreateDirectory(builder.OutputPath);
 
-            File.WriteAllText(Path.Combine(folder, output + ".cs"), "This is a test feature");
+            }
+            var assembly = Assembly.GetEntryAssembly();
+            var resourceStream = assembly.GetManifestResourceStream($"EmbeddedResource.Tools.Templates.{type}.template");
+            var template = "";
+            using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+            {
+                template = reader.ReadToEnd();
+            };
+            template = template.Replace("[Feature]", builder.Name);
+            template = template.Replace("[Namesace]", builder.Namespace);
+            File.WriteAllText(Path.Combine(builder.OutputPath, builder.Name + ".cs"), template);
         }
 
-        private static void GenerateSpecs(Generate type, List<string> assemblies, string output)
+        private static void GenerateSpecs(CodeGenerationBuilder builder)
         {
+            var assemblies = FindCoreBDDAssemblies.Find(builder.PathToAssemblies);
             foreach (var spec in assemblies)
             {
                 ForegroundColor = ConsoleColor.Green;
-                WriteLine($"Generating {type.ToString()} for {Path.GetFileNameWithoutExtension(spec)}");
+                WriteLine($"Generating {builder.TypeOfContent.ToString()} for {Path.GetFileNameWithoutExtension(spec)}");
                 ResetColor();
 
-                if (output == "")
-                    output = $"{Directory.GetParent(spec).Parent.Parent.Parent.ToString()}{Path.DirectorySeparatorChar}Specs{Path.DirectorySeparatorChar}";
+                if (builder.OutputPath == "")
+                    builder.OutputPath = $"{Directory.GetParent(spec).Parent.Parent.Parent.ToString()}{Path.DirectorySeparatorChar}Specs{Path.DirectorySeparatorChar}";
 
-                SpecGeneration.GenerateSpecs.OutputFeatureSpecs(spec, output);
+                SpecGeneration.GenerateSpecs.OutputFeatureSpecs(spec, builder.OutputPath);
             }
+        }
+
+        private static void GenerateTests(CodeGenerationBuilder builder)
+        {
+            //path == gherkin feature or folder with .features
+            //output class (will append, or create of doesnt exist)
+
+            WriteLine($"Generating Tests from {builder.PathToAssemblies}");
         }
     }
 }

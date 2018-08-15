@@ -1,7 +1,7 @@
 using Xunit;
 using CoreBDD;
 
-namespace SampleBDD.Tests
+namespace CoreBDD.ProjectTemplate
 {
     public class AdvancedCalculator : CalculatorFeature
     {

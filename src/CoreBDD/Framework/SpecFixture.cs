@@ -3,15 +3,20 @@ using System.Dynamic;
 
 namespace CoreBDD
 {
+    [Obsolete("Please use SpecFixture", true)]
+    public class GivenWhenThenFixture : SpecFixture
+    {
 
-    public class GivenWhenThenFixture : IDisposable
+    }
+
+    public class SpecFixture : IDisposable
     {
         public dynamic Given { get; set; }
         public dynamic When { get; set; }
         public object Then { get { return When; }  }
         public object Result { get { return When; }  }
 
-        public GivenWhenThenFixture()
+        public SpecFixture()
         {
             Given = new ExpandoObject();
             When = new ExpandoObject();
