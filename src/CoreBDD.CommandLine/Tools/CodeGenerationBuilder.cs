@@ -25,7 +25,7 @@ namespace CoreBDD.CommandLine.Tools
             };
         }
 
-        public static CodeGenerationBuilder Build(string typeOfContent, string pathToAssemblies, string outputPath, string name, string @namespace)
+        public static CodeGenerationBuilder Build(string typeOfContent, string pathToAssemblies, string outputPath, string name, string @namespace, string parent = "")
         {
             return new CodeGenerationBuilder
             {
@@ -33,7 +33,8 @@ namespace CoreBDD.CommandLine.Tools
                 PathToAssemblies = pathToAssemblies,
                 OutputPath = outputPath,
                 Name = name,
-                Namespace = @namespace
+                Namespace = @namespace,
+                Parent = parent
             };
         }
 
@@ -47,6 +48,7 @@ namespace CoreBDD.CommandLine.Tools
         public string PathToAssemblies { get; set; }
         public string OutputPath { get; set; }
         public string Name { get; set; }
+        public string Parent { get; set; }
         public string Namespace { get; set; }
         public List<string> Assemblies { get; set; }
     }

@@ -10,7 +10,6 @@ namespace SampleBDD.Tests
         [Spec("Multiply two numbers")]
         public void MultiplyTwoNumbers()
         {
-
             Given("I have a calculator",           () => calculator = new Calculator());
             When("I key in 10",                    () => calculator.Key(10));
             And("I key in 5 and press multiply",  () => calculator.Multiply(5));

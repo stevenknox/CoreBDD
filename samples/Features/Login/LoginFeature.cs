@@ -1,19 +1,19 @@
 using CoreBDD;
 
-namespace [Namespace]
+namespace SampleBDD.Tests
 {
-    [Feature("[Name]", 
+    [Feature("Login", 
     @"In order to avoid silly mistakes
     As a math idiot
     I want to be told the sum of two numbers")]
-    public class [Name]Feature : Specification
+    public class LoginFeature : Specification
     {
-         public [Name]Feature(SpecFixture context):base(context) 
+         public LoginFeature(SpecFixture context):base(context) 
          {
             
          }
 
-		 public [Name]Feature() 
+		 public LoginFeature() 
          {
             
          }

@@ -29,6 +29,9 @@ namespace CoreBDD.CommandLine
         [Option("-s|--specs")]
         public bool TestWithSpecs { get; set; }
 
+        [Option("--parent|--feature")]
+        public string Parent { get; }
+
         [Argument(1)]
         public string Generate { get; }
 
@@ -38,7 +41,7 @@ namespace CoreBDD.CommandLine
            switch (Task)
            {
                case "test" : return TestRunner.Run(TestWithSpecs, Path, Output);
-               case "generate": return CodeGeneration.Generate(CodeGenerationBuilder.Build(Generate, Path, Output, Name, Namespace));
+               case "generate": return CodeGeneration.Generate(CodeGenerationBuilder.Build(Generate, Path, Output, Name, Namespace, Parent));
            }
            Console.ReadKey();
            return 0;

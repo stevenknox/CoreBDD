@@ -1,0 +1,16 @@
+using CoreBDD;
+using Xunit;
+
+namespace [Namespace]
+{
+    public class [Name]Scenario: [Token2]Feature
+    {
+        [Spec("[Name] Description")]
+        public void [Name]()
+        {
+            Given($"I have ....",   () => { });
+            When($"I ...",          () => { });
+            Then($"I ...",			() => { });
+        }
+    }
+}
