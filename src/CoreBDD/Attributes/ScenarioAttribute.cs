@@ -1,13 +1,19 @@
 using System;
+using Xunit;
 
 namespace CoreBDD
 {
-    public class Scenario : System.Attribute
+
+    public class Scenario : BDDAttribute
     {
-        public string Title { get; set; }
-        public Scenario(string title)
+       public Scenario():base(1)
         {
-            Title = title;
+            
+        }
+
+        public Scenario(params object[] data):base(1,data)
+        {
+            
         }
 
     }

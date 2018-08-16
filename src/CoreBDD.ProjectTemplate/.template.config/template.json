@@ -4,5 +4,5 @@
     "classifications": [ "CoreBDD", "xUnit", "BDD", "TDD" ],
     "identity": "CoreBDD.ProjectTemplate",
     "name": "CoreBDD Test Project Template",
-    "shortName": "corebdd-project"
+    "shortName": "corebdd"
 }

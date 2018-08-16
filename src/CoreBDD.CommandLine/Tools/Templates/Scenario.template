@@ -5,7 +5,7 @@ namespace [Namespace]
 {
     public class [Name]Scenario: [Token2]Feature
     {
-        [Spec("[Name] Description")]
+        [Scenario("[Name] Description")]
         public void [Name]()
         {
             Given($"I have ....",   () => { });

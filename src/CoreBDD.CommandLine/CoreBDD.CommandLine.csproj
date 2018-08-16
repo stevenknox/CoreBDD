@@ -16,7 +16,7 @@
 
     <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
 
-    <VersionPrefix>0.7.0</VersionPrefix>
+    <VersionPrefix>0.7.1</VersionPrefix>
     
     <PackageTags>xunit,netcore,aspnetcore,bdd,test,corebdd</PackageTags>
     
@@ -43,10 +43,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Tools\Templates\Scenario.Empty.template" />
     <None Remove="Tools\Templates\Scenario.template" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Tools\Templates\Scenario.Empty.template" />
     <EmbeddedResource Include="Tools\Templates\Scenario.template" />
     <EmbeddedResource Include="Tools\Templates\Feature.template" />
     <!-- <EmbeddedResource  Include="Tools\Templates\Feature.template" /> -->

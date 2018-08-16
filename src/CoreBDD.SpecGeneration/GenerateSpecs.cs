@@ -54,7 +54,7 @@ namespace CoreBDD.SpecGeneration
             {
                 //can be standard or lean syntax style of tests
 
-                var senarios = featureScenarios.GetCustomAttributes((typeof(Scenario)));//currently one senario per class
+                var senarios = featureScenarios.GetCustomAttributes((typeof(Example)));//currently one senario per class
 
                 if (senarios.Any())
                     GenerateSpecsForDecoratorBasedSyntax(str, featureScenarios, senarios);
@@ -85,13 +85,13 @@ namespace CoreBDD.SpecGeneration
 
 
             var methods = featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(BDDAttribute), false).Length > 0).ToList();
-            methods.AddRange(featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(DataDrivenSpec), false).Length > 0));
+            methods.AddRange(featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(ScenarioOutline), false).Length > 0));
 
             var attrs = new List<BDDAttribute>();
-            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(Spec)) != null))
+            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(Scenario)) != null))
             {
-                var spec = (Spec)m.GetCustomAttribute(typeof(Spec));
-                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Spec}");
+                var spec = (Scenario)m.GetCustomAttribute(typeof(Scenario));
+                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Definition}");
 
                 var mtdWalker = new MethodWalker(m.Name);
                 mtdWalker.Visit(node);
@@ -109,10 +109,10 @@ namespace CoreBDD.SpecGeneration
 
             }
 
-            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(DataDrivenSpec)) != null))
+            foreach (MethodInfo m in methods.Where(f=> f.GetCustomAttribute(typeof(ScenarioOutline)) != null))
             {
-                var spec = (DataDrivenSpec)m.GetCustomAttribute(typeof(DataDrivenSpec));
-                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Spec}");
+                var spec = (ScenarioOutline)m.GetCustomAttribute(typeof(ScenarioOutline));
+                str.Append($"{SingleLine}{SingleLine}Scenario: {spec.Scenario}");
 
                 var inlineData = m.GetCustomAttributes(typeof(InlineDataAttribute));
 
@@ -151,7 +151,7 @@ namespace CoreBDD.SpecGeneration
 
         private static void GenerateSpecsForDecoratorBasedSyntax(StringBuilder str, Type featureScenarios, IEnumerable<Attribute> senarios)
         {
-            str.Append($"{SingleLine}{SingleLine}Scenario: {((Scenario)senarios.First()).Title}{FormatWhitespace}");
+            str.Append($"{SingleLine}{SingleLine}Scenario: {((Example)senarios.First()).Title}{FormatWhitespace}");
 
             var methods = featureScenarios.GetMethods().Where(m => m.GetCustomAttributes(typeof(BDDAttribute), false).Length > 0).ToArray();
             var attrs = new List<BDDAttribute>();
@@ -161,7 +161,7 @@ namespace CoreBDD.SpecGeneration
                 attrs.AddRange(m);
             }
 
-            str.Append(string.Join($"{FormatWhitespace}", attrs.Select(s => s.GetType().Name + " " + string.Format(s.Spec, s.args))));
+            str.Append(string.Join($"{FormatWhitespace}", attrs.Select(s => s.GetType().Name + " " + string.Format(s.Definition, s.args))));
         }
 
         static IEnumerable<Type> GetFeatureClasses(Assembly assembly)

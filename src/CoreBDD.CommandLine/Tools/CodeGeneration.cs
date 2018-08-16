@@ -2,6 +2,7 @@ using CoreBDD.CommandLine.Tools.Analyzer;
 using Gherkin;
 using Humanizer;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -48,26 +49,30 @@ namespace CoreBDD.CommandLine.Tools
             if (string.IsNullOrWhiteSpace(builder.OutputPath))
             {
                 builder.OutputPath = Directory.GetCurrentDirectory() + "/" + (Directory.GetCurrentDirectory().EndsWith(pluralFolderName, StringComparison.OrdinalIgnoreCase) ? "" : $"{pluralFolderName}/") + builder.Name;
-                if (!Directory.Exists(builder.OutputPath))
-                    Directory.CreateDirectory(builder.OutputPath);
-
             }
+
+            if (!Directory.Exists(builder.OutputPath))
+                Directory.CreateDirectory(builder.OutputPath);
+
             var assembly = Assembly.GetEntryAssembly();
-            var resourceStream = assembly.GetManifestResourceStream($"CoreBDD.CommandLine.Tools.Templates.{builder.TypeOfContent.ToString()}.template");
-            var template = "";
+            var withContent = string.IsNullOrWhiteSpace(builder.Content) ? "" : "Empty.";
+            var resourceStream = typeof(CodeGeneration).Assembly.GetManifestResourceStream($"CoreBDD.CommandLine.Tools.Templates.{builder.TypeOfContent.ToString()}.{withContent}template");
+            var template = new StringBuilder();
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
             {
-                template = reader.ReadToEnd();
+                template.Append(reader.ReadToEnd());
             };
-            template = template.Replace("[Name]", builder.Name);
-            template = template.Replace("[Namespace]", builder.Namespace);
-            template = string.IsNullOrWhiteSpace(token2) ? template : template.Replace("[Token2]", token2);
-            File.WriteAllText(Path.Combine(builder.OutputPath, builder.Name + (builder.TypeOfContent == GenerateContent.Feature ? "Feature" : "") + ".cs"), template);
+            template.Replace("[Name]", builder.Name);
+            template.Replace("[Namespace]", builder.Namespace);
+            template.Replace("[Token2]", token2);
+            template.Replace("[Content]", builder.Content);
+
+            File.WriteAllText(Path.Combine(builder.OutputPath, builder.Name + (builder.TypeOfContent == GenerateContent.Feature ? "Feature" : "") + ".cs"), template.ToString());
         }
 
         private static void GenerateSpecs(CodeGenerationBuilder builder)
         {
-            var assemblies = FindCoreBDDAssemblies.Find(builder.PathToAssemblies);
+            var assemblies = FindCoreBDDAssemblies.Find(builder.Path);
             foreach (var spec in assemblies)
             {
                 ForegroundColor = ConsoleColor.Green;
@@ -83,12 +88,45 @@ namespace CoreBDD.CommandLine.Tools
 
         private static void GenerateTests(CodeGenerationBuilder builder)
         {
-            //path == gherkin feature or folder with .features
+            //if path endds with .feature then process on file, else its a folder so scan
+            var featureFiles = new List<string>();
+            if(builder.Path.EndsWith(".feature"))
+            {
+                featureFiles.Add(builder.Path);
+            }
+            else
+            {
+                featureFiles.AddRange(System.IO.Directory.GetFiles(builder.Path, "*.feature", SearchOption.AllDirectories));
+            };
+            var scenarios = new StringBuilder();
             var parser = new Parser();
-            var gherkinDocument = parser.Parse(@"C:\Users\Steven\Source\CoreBDD\samples\Specs\CalculatorFeature.feature");
-            //output class (will append, or create of doesnt exist)
+            foreach (var file in featureFiles)
+            {
+                var gherkinDocument = parser.Parse(file);
+                var scenarioFolder = $@"{builder.OutputPath}{gherkinDocument.Feature.Name}\Scenarios";
 
-            WriteLine($"Generating test for " + gherkinDocument.Feature.Name);
+                var featureBuilder = CodeGenerationBuilder.BuildFeature(builder.OutputPath, gherkinDocument.Feature.Name, builder.Namespace);
+                CodeGeneration.Generate(featureBuilder);
+
+                foreach (var s in gherkinDocument.Feature.Children)
+                {
+                    scenarios.AppendLine($"\r\n\t\t\t[Scenario(\"" + s.Name + "\")]");
+                    scenarios.AppendLine($"\t\t\tpublic void {s.Name.Pascalize().Dehumanize()}()");
+                    scenarios.AppendLine("\t\t\t{");
+                    // scenarios.AppendLine(s.Description);
+                    foreach (var step in s.Steps)
+                    {
+                        scenarios.AppendLine($"\t\t\t\t{step.Keyword.Trim()}($\"" + step.Text + "\",   () => { });");
+                    }
+                    scenarios.AppendLine("\t\t\t}");
+                }
+
+                var scenarioBuilder = CodeGenerationBuilder.BuildScenario(scenarioFolder, gherkinDocument.Feature.Name, gherkinDocument.Feature.Name, builder.Namespace)
+                                                            .WithContent(scenarios.ToString());
+
+                CodeGeneration.Generate(scenarioBuilder);
+                scenarios.Clear();
+            }
         }
     }
 }

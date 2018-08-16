@@ -1,0 +1,10 @@
+using CoreBDD;
+using Xunit;
+
+namespace [Namespace]
+{
+    public class [Name]: [Token2]Feature
+    {
+        [Content]
+    }
+}

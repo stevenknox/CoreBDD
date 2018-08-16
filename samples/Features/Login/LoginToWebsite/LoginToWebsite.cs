@@ -5,7 +5,7 @@ namespace SampleBDD.Tests
 {
     public class LoginToWebsiteScenario: LoginFeature
     {
-        [Spec("LoginToWebsite Description")]
+        [Scenario("LoginToWebsite Description")]
         public void LoginToWebsite()
         {
             Given($"I have ....",   () => { });
