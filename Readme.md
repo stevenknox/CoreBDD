@@ -7,11 +7,34 @@ BDD framework for xUnit.net
 
 ## Getting started with CoreBDD
 
-Get the package from nuget
+There are several ways to get started with CoreBDD. You can install the dotnet project template via
+
+```ruby
+    dotnet new -i corebdd.projecttemplate
+```
+
+Then create a new folder for your test project and run
+
+```ruby
+    dotnet new corebdd
+```
+
+Alternatively you can add CoreBDD to an existing xUnit test project via the nuget package
 
 ```ruby
     dotnet add package CoreBDD
 ```
+
+There is also an optional Command Line tool for running tests with custom output, scaffolding test classes (features/scenarios/steps) and two-way code generation (Gherkin to CoreBDD tests and vice-versa). More documentation on the CLI is available at the bottom of this page.
+
+```ruby
+   dotnet tool install -g corebdd.commandline
+```
+
+Finally if you are using VSCode I have made some code-snippets available
+[available here](https://gist.github.com/stevenknox/231f1dcf775ceeeb890edc634ad551a2)
+
+## Writing CoreBDD Tests
 
 Following the usual calculator example, we can start with the following model to test
  
@@ -194,4 +217,41 @@ When the tests complete running, a *FeatureName.feature* file is generated under
 
 ```
 
-If you are developing using VS Code I have created some snippets [available here](https://gist.github.com/stevenknox/231f1dcf775ceeeb890edc634ad551a2)
+## Command Line Tool
+
+The command line tool makes it easy to run tasks such as test execution with Gherkin style output, generating default feature and scenario test files and generating Gherkin feature files from existing tests, or generating tests from existing feature files.
+
+Find CoreBDD tests in current of sub directories and execute tests
+
+```ruby
+    corebdd test
+```
+Run tests then generate Gherkin .feature files
+
+```ruby
+    corebdd test --specs 
+```
+
+Run tests then generate Gherkin .feature files in specified location
+
+```ruby
+    corebdd test --specs --output c:/specs
+```
+
+Scaffold a CoreBDD feature class called 'Login' in current folder
+
+```ruby
+    corebdd generate feature --name login --namespace SampleBDD.Tests
+```
+
+Scaffold a CoreBDD scenario class called 'LoginToWebsite' under the 'Login' feature
+
+```ruby
+corebdd generate scenario --name LoginToWebsite --feature login --namespace SampleBDD.Tests
+```
+
+Scaffold CoreBDD Tests from existing gherkin '.feature' files, specifiying location of feature files and target folder for generated tests
+
+```ruby
+corebdd generate tests --path ./MyFeatureFiles --output ./MyFeatureTests --namespace SampleBDD.Tests
+```

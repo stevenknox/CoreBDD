@@ -1,12 +1,6 @@
-using System;
-using static System.Console;
 using Xunit;
-using CoreBDD;
-using Gherkin;
 using System.IO;
 using CoreBDD.CommandLine.Tools;
-using System.Text;
-using Humanizer;
 
 namespace CoreBDD.Tests
 {
@@ -54,17 +48,17 @@ namespace CoreBDD.Tests
             Teardown();
         }
 
-         [Fact]
+        [Fact]
         public void ScaffoldTestFromGherkin()
         {
             var @namespace = "CoreBDD.Tests.Features";
-            var gherkinDocuments = $@"..\..\..\Input\";
+            var gherkinDocuments = $@"..\..\..\Input";
 
-            var testBuilder = CodeGenerationBuilder.BuildTests(gherkinDocuments, baseFolder, @namespace);
+            var testBuilder = CodeGenerationBuilder.BuildTests(gherkinDocuments, Path.Combine(baseFolder, "Calculator"), @namespace);
             CodeGeneration.Generate(testBuilder);
 
             Assert.True(File.Exists($@"{baseFolder}\Calculator\CalculatorFeature.cs"));
-            Assert.True(File.Exists($@"{baseFolder}\Calculator\Scenarios\CalculatorScenario.cs"));
+            Assert.True(File.Exists($@"{baseFolder}\Calculator\Scenarios\Calculator.cs"));
 
             Teardown();
         }

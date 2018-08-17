@@ -20,17 +20,6 @@ Scenario: Multiply two numbers
 			And It sets the equation to 10 x 5
 
 Scenario: Divide two numbers
-			Given I have a calculator
-			When I key in 10
-			And I key in 2 and press divide
-			Then It sets the Total to 5
-			And It sets the equation to 10 / 2
-
-			Given I have a calculator
-			When I key in 20
-			And I key in 4 and press divide
-			Then It sets the Total to 5
-			And It sets the equation to 20 / 4
 
 Scenario: Subtract two numbers
 			Given I have entered 5 into the calculator

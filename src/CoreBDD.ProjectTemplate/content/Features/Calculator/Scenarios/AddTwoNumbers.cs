@@ -2,7 +2,7 @@ using CoreBDD;
 
 namespace CoreBDD.ProjectTemplate
 {
-    [Scenario("Add two numbers")]
+    [Example("Add two numbers")]
     public class AddTwoNumbers : CalculatorFeature
     {
         readonly Calculator calc;

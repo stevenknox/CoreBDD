@@ -4,7 +4,6 @@ using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using static System.Console;
@@ -90,7 +89,7 @@ namespace CoreBDD.CommandLine.Tools
         {
             //if path endds with .feature then process on file, else its a folder so scan
             var featureFiles = new List<string>();
-            if(builder.Path.EndsWith(".feature"))
+            if(builder.Path.EndsWith(".feature", StringComparison.OrdinalIgnoreCase))
             {
                 featureFiles.Add(builder.Path);
             }
@@ -103,7 +102,9 @@ namespace CoreBDD.CommandLine.Tools
             foreach (var file in featureFiles)
             {
                 var gherkinDocument = parser.Parse(file);
-                var scenarioFolder = $@"{builder.OutputPath}{gherkinDocument.Feature.Name}\Scenarios";
+
+                //todo - better path resolution strategy
+                var scenarioFolder = Path.Combine(builder.OutputPath, (builder.OutputPath.EndsWith(gherkinDocument.Feature.Name.Trim(), StringComparison.OrdinalIgnoreCase) ? "" : gherkinDocument.Feature.Name), "Scenarios");
 
                 var featureBuilder = CodeGenerationBuilder.BuildFeature(builder.OutputPath, gherkinDocument.Feature.Name, builder.Namespace);
                 CodeGeneration.Generate(featureBuilder);

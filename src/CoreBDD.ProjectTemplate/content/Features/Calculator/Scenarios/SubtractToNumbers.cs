@@ -2,7 +2,7 @@ using CoreBDD;
 
 namespace CoreBDD.ProjectTemplate
 {
-    [Scenario("Subtract two numbers")]
+    [Example("Subtract two numbers")]
     public class SubtractTwoNumbers : CalculatorFeature
     {
         readonly Calculator calc;

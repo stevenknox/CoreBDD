@@ -7,7 +7,7 @@ namespace CoreBDD.ProjectTemplate
     {
         Calculator calculator;
 
-        [Spec("Multiply two numbers")]
+        [Scenario("Multiply two numbers")]
         public void MultiplyTwoNumbers()
         {
 
@@ -18,9 +18,9 @@ namespace CoreBDD.ProjectTemplate
             And("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
         }
 
-        [DataDrivenSpec("Divide two numbers")]
-        [InlineData(10, 2, 5)]
-        [InlineData(20, 4, 5)]
+        [ScenarioOutline("Divide two numbers")]
+        [Examples(10, 2, 5)]
+        [Examples(20, 4, 5)]
         public void DivideTwoNumbers(int number, int divideby, int result)
         {
             Given($"I have a calculator",         () => calculator = new Calculator());

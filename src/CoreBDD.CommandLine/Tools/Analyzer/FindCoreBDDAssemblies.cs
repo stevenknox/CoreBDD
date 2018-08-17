@@ -31,7 +31,7 @@ namespace CoreBDD.CommandLine.Tools.Analyzer
             if (!assembliesToTest.Any())
             {
                 ForegroundColor = ConsoleColor.Red;
-                WriteLine("No CoreBDD Test probjects found");
+                WriteLine("No CoreBDD Test projects found");
                 ResetColor();
             }
             return assembliesToTest;
