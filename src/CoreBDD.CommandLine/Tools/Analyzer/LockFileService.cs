@@ -11,9 +11,9 @@ namespace CoreBDD.CommandLine.Tools.Analyzer
     {
         public LockFile GetLockFile(string projectPath, string outputPath)
         {
-            // Run the restore command
+            // Run the restore command (tests need a build so lets do that too)
             var dotNetRunner = new DotNetRunner();
-            string[] arguments = new[] {"restore", $"\"{projectPath}\""};
+            string[] arguments = new[] {"build", $"\"{projectPath}\""};
             var runStatus = dotNetRunner.Run(Path.GetDirectoryName(projectPath), arguments);
 
             // Load the lock file

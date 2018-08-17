@@ -1,6 +1,7 @@
 using CoreBDD.CommandLine.Tools.Analyzer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using Xunit.Runners;
@@ -25,6 +26,10 @@ namespace CoreBDD.CommandLine.Tools
         {
             var assembliesToTest = new List<string>();
 
+            //need to build
+            var dotNetRunner = new DotNetRunner();
+            string[] arguments = { "build", $"\"{Path.GetDirectoryName(path)}\"" };
+            var runStatus = dotNetRunner.Run(Path.GetDirectoryName(path), arguments);
 
             if (string.IsNullOrEmpty(path) || path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) == false)
             {
