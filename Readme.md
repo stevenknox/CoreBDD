@@ -226,16 +226,11 @@ Find CoreBDD tests in current of sub directories and execute tests
 ```ruby
     corebdd test
 ```
-Run tests then generate Gherkin .feature files
-
-```ruby
-    corebdd test --specs 
-```
 
 Run tests then generate Gherkin .feature files in specified location
 
 ```ruby
-    corebdd test --specs --output c:/specs
+    corebdd test --specs --output ./Specs
 ```
 
 Scaffold a CoreBDD feature class called 'Login' in current folder

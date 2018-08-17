@@ -4,5 +4,11 @@
     "classifications": [ "CoreBDD", "xUnit", "BDD", "TDD" ],
     "identity": "CoreBDD.ProjectTemplate",
     "name": "CoreBDD Test Project Template",
-    "shortName": "corebdd"
+    "shortName": "corebdd",
+    "tags": {
+        "language": "C#",  
+        "type":"project"
+      },
+      "sourceName": "CoreBDD.ProjectTemplate",
+      "preferNameDirectory":true
 }

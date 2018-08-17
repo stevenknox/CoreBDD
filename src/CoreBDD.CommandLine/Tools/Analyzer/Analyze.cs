@@ -17,7 +17,10 @@ namespace CoreBDD.CommandLine.Tools.Analyzer
             var dependencyGraphService = new DependencyGraphService();
             var dependencyGraph = dependencyGraphService.GenerateDependencyGraph(projectPath);
 
-            return dependencyGraph.Projects.Where(p => p.RestoreMetadata.ProjectStyle == ProjectStyle.PackageReference && p.Name == "CoreBDD").Any();
+            return dependencyGraph.Projects.Where(p => p.RestoreMetadata.ProjectStyle == ProjectStyle.PackageReference 
+                                            && p.TargetFrameworks.Any(f=> 
+                                               f.Dependencies.Any(d=> d.Name == "CoreBDD"))
+                                            ).Any();
         }
 
         public static List<string> Solution(string projectPath)

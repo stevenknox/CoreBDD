@@ -1,3 +1,5 @@
+using CoreBDD;
+
 namespace CoreBDD.ProjectTemplate
 {
     [Feature("Calculator", 

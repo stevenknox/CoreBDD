@@ -1,12 +1,13 @@
 using Xunit;
 using System.IO;
 using CoreBDD.CommandLine.Tools;
+using System.Reflection;
 
 namespace CoreBDD.Tests
 {
     public class CodeGenerationTests
     {
-        private readonly string baseFolder = $@"..\..\..\Output\";
+        private readonly string baseFolder = $@"{Directory.GetParent(Assembly.GetExecutingAssembly().Location)}..\..\..\..\Output\";
 
         [Fact]
         public void ScaffoldFeature()
@@ -52,7 +53,7 @@ namespace CoreBDD.Tests
         public void ScaffoldTestFromGherkin()
         {
             var @namespace = "CoreBDD.Tests.Features";
-            var gherkinDocuments = $@"..\..\..\Input";
+            var gherkinDocuments = $@"{Directory.GetParent(Assembly.GetExecutingAssembly().Location)}..\..\..\..\Input";
 
             var testBuilder = CodeGenerationBuilder.BuildTests(gherkinDocuments, Path.Combine(baseFolder, "Calculator"), @namespace);
             CodeGeneration.Generate(testBuilder);

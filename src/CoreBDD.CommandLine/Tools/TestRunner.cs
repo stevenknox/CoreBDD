@@ -25,10 +25,11 @@ namespace CoreBDD.CommandLine.Tools
         {
             var assembliesToTest = new List<string>();
 
-            if (string.IsNullOrEmpty(path))
+
+            if (string.IsNullOrEmpty(path) || path.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) == false)
             {
                 //find assemblies using xUnit and CoreBDD in the solution
-                assembliesToTest.AddRange(FindCoreBDDAssemblies.Find());
+                assembliesToTest.AddRange(FindCoreBDDAssemblies.Find(path));
             }
             else
             {
@@ -37,38 +38,49 @@ namespace CoreBDD.CommandLine.Tools
             
             foreach (var assemblyPath in assembliesToTest)
             {
+                finished = new ManualResetEvent(false);
+
                 var assembly = Assembly.LoadFrom(assemblyPath);
 
-                using (var runner = AssemblyRunner.WithoutAppDomain(assembly.Location))
+                try
                 {
-                    var name = assembly.GetName().Name;
-                    runner.OnDiscoveryComplete = OnDiscoveryComplete;
-                    runner.OnExecutionComplete = OnExecutionComplete;
-                    runner.OnTestFailed = OnTestFailed;
-                    runner.OnTestSkipped = OnTestSkipped;
-
-                    ForegroundColor = ConsoleColor.Green;
-                    WriteLine($"Discovering tests in {name}");
-                    ResetColor();
-                    runner.Start();
-
-                    finished.WaitOne();
-                    finished.Dispose();
-                                        
-                    if (generateSpecs)
+                    using (var runner = AssemblyRunner.WithoutAppDomain(assembly.Location))
                     {
-                        CodeGeneration.Generate(CodeGenerationBuilder.BuildSpecs(output).WithAssemblies(assembliesToTest));
-                    }
-                    else
-                    {
+                        var name = assembly.GetName().Name;
+                        runner.OnDiscoveryComplete = OnDiscoveryComplete;
+                        runner.OnExecutionComplete = OnExecutionComplete;
+                        runner.OnTestFailed = OnTestFailed;
+                        runner.OnTestSkipped = OnTestSkipped;
+
                         ForegroundColor = ConsoleColor.Green;
-                        WriteLine($"Finished Tests for {name}");
+                        WriteLine($"Discovering tests in {name}");
                         ResetColor();
+                        runner.Start();
+
+                        finished.WaitOne();
+                        finished.Dispose();
+
+                        if (generateSpecs)
+                        {
+                            CodeGeneration.Generate(CodeGenerationBuilder.BuildSpecs(output).WithAssemblies(assembliesToTest));
+                        }
+                        else
+                        {
+                            ForegroundColor = ConsoleColor.Green;
+                            WriteLine($"Finished Tests for {name}");
+                            ResetColor();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    ForegroundColor = ConsoleColor.Red;
+                    WriteLine($"Something went wrong - {ex.Message}");
+                    ResetColor();
+                }
+                
             }
 
-           
             return result;
         }
 
