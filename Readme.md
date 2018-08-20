@@ -47,7 +47,7 @@ public class Calculator
     }
 ```
 
-We can define a *Feature* to collate a suite of scenarios by deriving from the *Specification* base class and decorating with the *Feature* attribute
+We can define a *Feature* to collate a suite of scenarios by deriving from the *Specification* base class and decorating with the *Feature* attribute. Note both constructors are required to support the different test syntax styles.
 
   ``` csharp
     [Feature("Calculator", 
@@ -56,16 +56,21 @@ We can define a *Feature* to collate a suite of scenarios by deriving from the *
     I want to be told the sum of two numbers")]
     public class CalculatorFeature : Specification
     {
-         public CalculatorFeature(GivenWhenThenFixture context):base(context) 
+         public CalculatorFeature(SpecFixture context):base(context) 
+         {
+            
+         }
+         
+         public CalculatorFeature()
          {
             
          }
     }
 ```
-Once we have created our base Feature, we have several different flavours for writing tests, first we can generate a scenario-per-class (similar to Cucumber style tests) with a method for each Given/When/Then step. To do this simply inherit from the new Feature class, decorate with a Scenario attribute and provide Given, When, Then methods that will execute in order
+Once we have created our base Feature, we have several different flavours for writing tests, first we can generate a scenario-per-class (similar to Cucumber style tests) with a method for each Given/When/Then step. To do this simply inherit from the new Feature class, decorate with an Example attribute and provide Given, When, Then methods that will execute in order
 
   ``` csharp
-    [Scenario("Add two numbers")]
+    [Example("Add two numbers")]
     public class AddTwoNumbers : CalculatorFeature
     {
         readonly Calculator calc;
@@ -87,45 +92,6 @@ Once we have created our base Feature, we have several different flavours for wr
     }
 ```
 
-The above shows a simple, terse implementation using expression bodied members for the Given/When/Then implementation. A more verbose example may look like
-
-  ``` csharp
-    [Scenario("Subtract two numbers")]
-    public class SubtractTwoNumbers : CalculatorFeature
-    {
-        readonly Calculator calc;
-
-        public SubtractTwoNumbers(GivenWhenThenFixture state) : base(state)
-        {
-             calc = new Calculator();
-        }
-
-        [Given("I have entered {0} into the calculator", 5)]
-        public void Given(int first)
-        {
-            Context.Given.First = first;
-        }
-
-        [And("I have also entered {0} into the calculator", 2)]
-        public void And(int second)
-        {
-            Context.Given.Second = second;
-        }
-
-        [When("I press minus")]
-        public void When()
-        {
-            Context.When = calc.Subtract(Context.Given.First, Context.Given.Second);
-        }
-
-        [Then("the result should be {0}", 3)]
-        public void Then(int result)
-        {
-           Context.Result.ShouldBe(result);
-        }
-
-    }
-```
 
 You can also define scenarios in a single method using delgates for each of the steps and allowing for multiple scenarios to be defined within the same class
 
@@ -134,7 +100,7 @@ You can also define scenarios in a single method using delgates for each of the 
     {
         Calculator calculator;
 
-        [Spec("Multiply two numbers")]
+        [Scenario("Multiply two numbers")]
         public void MultiplyTwoNumbers()
         {
             Given("I have a calculator",           () => calculator = new Calculator());
@@ -144,7 +110,7 @@ You can also define scenarios in a single method using delgates for each of the 
             And("It sets the equation to 10 x 5", () => calculator.Equation.ShouldBe("10 x 5"));
         }
 
-        [Spec("Divide two numbers")]
+        [Scenario("Divide two numbers")]
         public void DivideTwoNumbers()
         {
             Given("I have a calculator",       () => calculator = new Calculator());
@@ -158,9 +124,9 @@ You can also define scenarios in a single method using delgates for each of the 
 The method based syntax also supports data driven tests, using xUnit InlineData (class based scenarios don't support data driven tests just yet).
 
   ``` csharp
-        [DataDrivenSpec("Divide two numbers")]
-        [InlineData(10, 2, 5)]
-        [InlineData(20, 4, 5)]
+        [ScenarioOutline("Divide two numbers")]
+        [Examples(10, 2, 5)]
+        [Examples(20, 4, 5)]
         public void DivideTwoNumbers(int number, int divideby, int result)
         {
             Given($"I have a calculator",                           () => calculator = new Calculator());
@@ -221,7 +187,19 @@ When the tests complete running, a *FeatureName.feature* file is generated under
 
 The command line tool makes it easy to run tasks such as test execution with Gherkin style output, generating default feature and scenario test files and generating Gherkin feature files from existing tests, or generating tests from existing feature files.
 
-Find CoreBDD tests in current of sub directories and execute tests
+Starting from scratch using the dotnet template and cli tools:
+
+```ruby
+    mkdir demobdd
+    cd demobdd
+```
+Next create the new CoreBDD project
+
+```ruby
+    dotnet new corebdd
+```
+
+Find CoreBDD tests in current and sub directories and execute tests
 
 ```ruby
     corebdd test
@@ -236,17 +214,17 @@ Run tests then generate Gherkin .feature files in specified location
 Scaffold a CoreBDD feature class called 'Login' in current folder
 
 ```ruby
-    corebdd generate feature --name login --namespace SampleBDD.Tests
+    corebdd generate feature --name login --namespace demobdd
 ```
 
 Scaffold a CoreBDD scenario class called 'LoginToWebsite' under the 'Login' feature
 
 ```ruby
-corebdd generate scenario --name LoginToWebsite --feature login --namespace SampleBDD.Tests
+corebdd generate scenario --name LoginToWebsite --feature login --namespace demobdd
 ```
 
 Scaffold CoreBDD Tests from existing gherkin '.feature' files, specifiying location of feature files and target folder for generated tests
 
 ```ruby
-corebdd generate tests --path ./MyFeatureFiles --output ./MyFeatureTests --namespace SampleBDD.Tests
+corebdd generate tests --path ./MyFeatureFiles --output ./MyFeatureTests --namespace demobdd
 ```
