@@ -1,4 +1,4 @@
-[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD)  [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/stevenknox101)
+[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD)  [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow@stevenknox101)](https://twitter.com/stevenknox101)
 
 
 # CoreBDD
@@ -223,8 +223,11 @@ Scaffold a CoreBDD scenario class called 'LoginToWebsite' under the 'Login' feat
 corebdd generate scenario --name LoginToWebsite --feature login --namespace demobdd
 ```
 
-Scaffold CoreBDD Tests from existing gherkin '.feature' files, specifiying location of feature files and target folder for generated tests
+Scaffold CoreBDD Tests from existing gherkin '.feature' files, specifiying location of feature files and target folder for generated tests.
+If you have been following using the 'corebdd' test example, delete the 'Features' folder (leaving the Specs folder with .feature files intact) then run:
 
 ```ruby
-corebdd generate tests --path ./MyFeatureFiles --output ./MyFeatureTests --namespace demobdd
+corebdd generate tests --path ./Specs --output ./Features --namespace demobdd
 ```
+
+You should now have test stubs regenerated using the .feature file scenarios.
