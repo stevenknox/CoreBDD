@@ -16,7 +16,7 @@
 
     <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
 
-    <VersionPrefix>0.8.3</VersionPrefix>
+    <VersionPrefix>0.8.5</VersionPrefix>
     
     <PackageTags>xunit,netcore,aspnetcore,bdd,test,corebdd</PackageTags>
     

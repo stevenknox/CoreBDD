@@ -13,15 +13,12 @@ namespace CoreBDD
 
         public Specification(SpecFixture context)
         {
-            var x = (Feature)this.GetType().GetCustomAttributes(typeof(Feature), true).ToList().First();
-
             Context = context;
-            Context.Feature = x;
         }
 
         public Specification()
         {
-            Console.WriteLine();
+            WriteLine();
         }
 
         public virtual void Given(string context, Action action)
