@@ -1,5 +1,6 @@
 using System;
 using System.Dynamic;
+using static System.Console;
 
 namespace CoreBDD
 {
@@ -13,11 +14,20 @@ namespace CoreBDD
     {
         public dynamic Given { get; set; }
         public dynamic When { get; set; }
+        public Feature Feature { get; internal set; }
+
         public object Then { get { return When; }  }
         public object Result { get { return When; }  }
 
         public SpecFixture()
         {
+            if (Feature != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Feature.Description);
+                ResetColor();
+
+            }
             Given = new ExpandoObject();
             When = new ExpandoObject();
         }

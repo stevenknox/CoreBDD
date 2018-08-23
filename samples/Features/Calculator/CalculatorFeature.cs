@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using static System.Console;
+
 namespace CoreBDD
 {
     [Feature("Calculator", 

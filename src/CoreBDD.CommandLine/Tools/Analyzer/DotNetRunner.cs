@@ -12,6 +12,7 @@ namespace CoreBDD.CommandLine.Tools.Analyzer
     {
         public RunStatus Run(string workingDirectory, string[] arguments)
         {
+            if (string.IsNullOrWhiteSpace(workingDirectory)) workingDirectory = Directory.GetCurrentDirectory();
             var psi = new ProcessStartInfo("dotnet", string.Join(" ", arguments))
             {
                 WorkingDirectory = workingDirectory,

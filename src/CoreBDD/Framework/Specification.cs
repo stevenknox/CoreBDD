@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 using static System.Console;
 
@@ -12,7 +13,10 @@ namespace CoreBDD
 
         public Specification(SpecFixture context)
         {
+            var x = (Feature)this.GetType().GetCustomAttributes(typeof(Feature), true).ToList().First();
+
             Context = context;
+            Context.Feature = x;
         }
 
         public Specification()
