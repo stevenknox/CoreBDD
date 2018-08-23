@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using CoreBDD.SpecGeneration;
 using Xunit;
 
@@ -11,7 +12,8 @@ namespace CoreBDD.ProjectTemplate
     {
         public void Dispose()
         {
-            GenerateSpecs.OutputFeatureSpecs(this.GetType().Assembly.Location, @"..\..\..\Specs\");
+            var specsFolder = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).Parent.Parent.Parent.FullName;
+            GenerateSpecs.OutputFeatureSpecs(this.GetType().Assembly.Location, specsFolder + @"\Specs");
         }
     }
 }
