@@ -1,4 +1,4 @@
-[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD) [![Build Status](https://dev.azure.com/WholeSoftware/CoreBDD/_apis/build/status/stevenknox.CoreBDD)](https://dev.azure.com/WholeSoftware/CoreBDD/_build/latest?definitionId=4) [![SonarQube Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=stevenknox_CoreBDD&metric=alert_status)] [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow@stevenknox101)](https://twitter.com/stevenknox101)
+[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD) [![Build Status](https://dev.azure.com/WholeSoftware/CoreBDD/_apis/build/status/CoreBDD-CI)](https://dev.azure.com/WholeSoftware/CoreBDD/_build/latest?definitionId=5) [![SonarQube Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=stevenknox_CoreBDD&metric=alert_status)](https://sonarcloud.io/dashboard?id=stevenknox_CoreBDD) [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow@stevenknox101)](https://twitter.com/stevenknox101)
 
 
 # CoreBDD
