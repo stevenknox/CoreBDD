@@ -1,4 +1,4 @@
-[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD)  [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow@stevenknox101)](https://twitter.com/stevenknox101)
+[![NuGet version](https://badge.fury.io/nu/CoreBDD.svg)](https://www.nuget.org/packages/CoreBDD) [![Build Status](https://dev.azure.com/WholeSoftware/CoreBDD/_apis/build/status/stevenknox.CoreBDD)](https://dev.azure.com/WholeSoftware/CoreBDD/_build/latest?definitionId=4) [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow@stevenknox101)](https://twitter.com/stevenknox101)
 
 
 # CoreBDD
