@@ -13,7 +13,7 @@
 
     <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
 
-    <VersionPrefix>0.9.6</VersionPrefix>
+    <VersionPrefix>0.9.7</VersionPrefix>
     
     <PackageTags>xunit,netcore,aspnetcore,bdd,test</PackageTags>
 
