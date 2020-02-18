@@ -7,19 +7,21 @@
     
     <Title>CoreBDD</Title>
 
-    <Authors>Steven Knox, Roger Tinsley</Authors>
+    <Authors>Steven Knox</Authors>
 
     <Description>BDD Framework for xUnit and .Net Core</Description>
 
     <PackageProjectUrl>https://github.com/stevenknox/CoreBDD</PackageProjectUrl>
 
-    <VersionPrefix>0.9.7</VersionPrefix>
+    <PackageProjectUrl>https://github.com/stevenknox/CoreBDD/blob/master/LICENSE</PackageProjectUrl>
+
+    <VersionPrefix>1.0.0</VersionPrefix>
     
     <PackageTags>xunit,netcore,aspnetcore,bdd,test</PackageTags>
 
     <Company />
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

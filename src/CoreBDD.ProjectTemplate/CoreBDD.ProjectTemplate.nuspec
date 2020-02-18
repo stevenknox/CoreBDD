@@ -2,10 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>CoreBDD.ProjectTemplate</id>
-    <version>0.9.7</version>
+    <version>1.0.0</version>
     <description>
       Creates a CoreBDD Test Project
     </description>
+    <licenseUrl>https://github.com/stevenknox/CoreBDD/blob/master/LICENSE</licenseUrl>
     <authors>Steven Knox</authors>
     <packageTypes>
       <packageType name="Template" />
